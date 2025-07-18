@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive SSR Calculator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<h1>Simple SSR Calculator</h1>
+
+<!-- Input Form -->
+<form action="/calculate" method="post">
+    <div>
+        <label for="firstNumber">First Number:</label>
+        <input type="number" id="firstNumber" name="firstNumber" value="{{firstNumber}}" required>
+    </div>
+    <div>
+        <label for="secondNumber">Second Number:</label>
+        <input type="number" id="secondNumber" name="secondNumber" value="{{secondNumber}}" required>
+    </div>
+    <button type="submit">Calculate Sum</button>
+</form>
+
+<!-- Display Result (conditionally) -->
+{{#if showResult}}
+    <div class="result">
+        <h2>Result:</h2>
+        <p>The sum of {{firstNumber}} and {{secondNumber}} is <strong>{{sum}}</strong>!</p>
+    </div>
+{{/if}}
+
+<p class="ssr-note">This page is fully server-side rendered!</p>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
