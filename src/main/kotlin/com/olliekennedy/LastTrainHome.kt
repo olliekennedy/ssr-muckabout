@@ -47,10 +47,11 @@ fun SessionFilter(): Filter = Filter { next ->
 }
 
 data class CalculationPageViewModel(
-    val firstNumber: Int,
-    val secondNumber: Int,
-    val sum: Int,
-    val showResult: Boolean // Flag to conditionally show the result
+    val from: String,
+    val to: String,
+    val time: String,
+    val link: String,
+    val showResult: Boolean, // Flag to conditionally show the result
 ) : ViewModel
 
 object InMemorySessionStore {
@@ -62,8 +63,8 @@ object InMemorySessionStore {
 
 val sessionStorage = InMemorySessionStore
 
-val firstFormField = FormField.int().required("firstNumber")
-val secondFormField = FormField.int().required("secondNumber")
+val firstFormField = FormField.required("from")
+val secondFormField = FormField.required("to")
 val calculationForm = Body.webForm(Validator.Strict, firstFormField, secondFormField).toLens()
 
 val renderer = HandlebarsTemplates().CachingClasspath()
@@ -81,15 +82,16 @@ val app: HttpHandler = routes(
             // Deserialize the string back to CalculationPageViewModel
             // In a real app, you might use a JSON serializer for more complex objects
             val parts = (it as String).split(",")
-            if (parts.size == 3) {
+            if (parts.size == 4) {
                 CalculationPageViewModel(
-                    firstNumber = parts[0].toInt(),
-                    secondNumber = parts[1].toInt(),
-                    sum = parts[2].toInt(),
-                    showResult = true
+                    from = parts[0],
+                    to = parts[1],
+                    time = parts[2],
+                    link = parts[3],
+                    showResult = true,
                 )
             } else null
-        } ?: CalculationPageViewModel(0, 0, 0, showResult = false) // Default if no calculation yet
+        } ?: CalculationPageViewModel("", "", "", "", showResult = false) // Default if no calculation yet
 
         session.remove(LAST_CALC_SESSION_KEY)
 
@@ -103,13 +105,14 @@ val app: HttpHandler = routes(
 
         when (webForm.errors.isEmpty()) {
             true -> {
-                val firstNumber = firstFormField(webForm)
-                val secondNumber = secondFormField(webForm)
-                val sum = firstNumber.addedTo(secondNumber)
+                val from = firstFormField(webForm)
+                val to = secondFormField(webForm)
+                val time = "23:44"
+                val link = "https://www.nationalrail.co.uk/live-trains/details/?sid=202507218936451&type=departures&targetCrs=ZFD&filterCrs=SAC"
 
-                val resultViewModel = CalculationPageViewModel(firstNumber, secondNumber, sum, showResult = true)
+                val resultViewModel = CalculationPageViewModel(from, to, time, link, showResult = true)
 
-                session[LAST_CALC_SESSION_KEY] = "${resultViewModel.firstNumber},${resultViewModel.secondNumber},${resultViewModel.sum}"
+                session[LAST_CALC_SESSION_KEY] = "${resultViewModel.from},${resultViewModel.to},${resultViewModel.time},${resultViewModel.link}"
 
                 Response(SEE_OTHER).header("Location", "/")
             }

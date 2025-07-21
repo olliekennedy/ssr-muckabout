@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive SSR Calculator</title>
+    <title>last train home</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-<h1>Simple SSR Calculator</h1>
+<h1>last train home</h1>
 
 <!-- Input Form -->
 <form action="/calculate" method="post">
     <div>
-        <label for="firstNumber">First Number:</label>
-        <input type="number" id="firstNumber" name="firstNumber" value="{{firstNumber}}" required>
+        <label for="from">from:</label>
+        <input type="text" id="from" name="from" value="{{from}}" required>
     </div>
     <div>
-        <label for="secondNumber">Second Number:</label>
-        <input type="number" id="secondNumber" name="secondNumber" value="{{secondNumber}}" required>
+        <label for="to">to:</label>
+        <input type="text" id="to" name="to" value="{{to}}" required>
     </div>
-    <button type="submit">Calculate Sum</button>
+    <button type="submit">how late can i stay?</button>
 </form>
 
 <!-- Display Result (conditionally) -->
 {{#if showResult}}
     <div class="result">
         <h2>Result:</h2>
-        <p>The sum of {{firstNumber}} and {{secondNumber}} is <strong>{{sum}}</strong>!</p>
+        <p>Congratulations, you have time for <strong>3</strong> more pints! The last train tonight from {{from}} to {{to}} is <strong>{{time}}</strong>!</p>
+        <p>See more details about your journey -> <a href="{{link}}">HERE</a></p>
     </div>
 {{/if}}
 
