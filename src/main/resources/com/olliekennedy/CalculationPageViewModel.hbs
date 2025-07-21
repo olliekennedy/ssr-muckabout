@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>last train home</title>
+    <title>Last Train Home</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>last train home</h1>
+<h1>🚂 last train home 🍻</h1>
+
 
 <!-- Input Form -->
 <form action="/calculate" method="post">
     <div>
-        <label for="from">from:</label>
+        <label for="from">From</label>
         <input type="text" id="from" name="from" value="{{from}}" required>
     </div>
     <div>
-        <label for="to">to:</label>
+        <label for="to">To</label>
         <input type="text" id="to" name="to" value="{{to}}" required>
     </div>
-    <button type="submit">how late can i stay?</button>
+    <button type="submit">how late can i stay? 🍺</button>
 </form>
 
 <!-- Display Result (conditionally) -->
 {{#if showResult}}
     <div class="result">
         <h2>Result:</h2>
-        <p>Congratulations, you have time for <strong>3</strong> more pints! The last train tonight from {{from}} to {{to}} is <strong>{{time}}</strong>!</p>
-        <p>See more details about your journey -> <a href="{{link}}">HERE</a></p>
+        <p>Congratulations, you have time for <strong>3</strong> more pints! 🍻🍻🍻</p>
+        <p>The last train tonight from <strong>{{from}}</strong> to <strong>{{to}}</strong> is at <strong>{{time}}</strong>.</p>
+        <p><a href="{{link}}" target="_blank">View train details</a></p>
     </div>
 {{/if}}
 
-<p class="ssr-note">This page is fully server-side rendered!</p>
+<p class="ssr-note">This page is fully server-side rendered 🎉</p>
 <script src="/static/js/main.js"></script>
 </body>
 </html>

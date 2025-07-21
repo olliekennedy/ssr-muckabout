@@ -6,11 +6,12 @@
 }
 
 body {
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Fredoka', sans-serif;
     background: #f9f9fb;
     color: #333;
     padding: 2rem;
     line-height: 1.6;
+    background: linear-gradient(135deg, #fff7e6, #e6f7ff);
 }
 
 /* Layout */
@@ -95,4 +96,22 @@ button[type="submit"]:hover {
     margin-top: 4rem;
     font-size: 0.9rem;
     color: #888;
+}
+
+.result::before {
+    content: "🍻";
+    font-size: 4rem;
+    display: block;
+    animation: bounce 1.2s infinite;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
