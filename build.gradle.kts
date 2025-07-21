@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     kotlin("jvm") version "2.2.0"
     application
+    id( "org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
 }
 
 buildscript {
@@ -61,5 +62,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.3")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.3")
     testImplementation("org.junit.platform:junit-platform-launcher:1.13.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 }
 
