@@ -1,7 +1,6 @@
-# HelloWorld
+# SSR Calculator
 
 ## Package
 ```
 ./gradlew distZip
 ```
-
