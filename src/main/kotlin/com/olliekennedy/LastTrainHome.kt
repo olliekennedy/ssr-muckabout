@@ -1,5 +1,8 @@
 package com.olliekennedy
 
+import com.github.jknack.handlebars.Handlebars
+import com.github.jknack.handlebars.Helper
+import com.github.jknack.handlebars.Options
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.http4k.core.Body
@@ -71,11 +74,17 @@ val firstFormField = FormField.required("from")
 val secondFormField = FormField.required("to")
 val calculationForm = Body.webForm(Validator.Strict, firstFormField, secondFormField).toLens()
 
-val renderer = HandlebarsTemplates().CachingClasspath()
+val customHandlebars = Handlebars().apply {
+    registerHelper("ifEquals", Helper<Any?> { a: Any?, options: Options ->
+        val b: Any? = options.param(0)
+        if (a == b) options.fn(null) else options.inverse(null)
+    })
+}
+val renderer = HandlebarsTemplates(configure = { customHandlebars }).CachingClasspath()
 val views = Body.viewModel(renderer, TEXT_HTML).toLens()
 
 const val CORPUS_FILENAME = "/datasets/CORPUSExtract.json"
-val stations: List<Station> = StationParser().parse(CORPUS_FILENAME).sortedBy { it.name }
+val stations: List<Station> = StationParser().parse(CORPUS_FILENAME).sortedBy { it.name.lowercase() }
 
 const val LAST_CALC_SESSION_KEY = "lastCalculation"
 

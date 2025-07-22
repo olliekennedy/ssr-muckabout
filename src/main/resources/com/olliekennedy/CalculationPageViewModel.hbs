@@ -18,7 +18,7 @@
         <label for="from">From</label>
         <select id="from" name="from" required>
             {{#each stations}}
-                <option value={{code}}>{{name}} [{{code}}]</option>
+                <option value="{{code}}" {{#ifEquals code ../from}}selected{{/ifEquals}}>{{name}} – {{code}}</option>
             {{/each}}
         </select>
     </div>
@@ -26,7 +26,7 @@
         <label for="to">To</label>
         <select id="to" name="to" required>
             {{#each stations}}
-                <option value={{code}}>{{name}} [{{code}}]</option>
+                <option value="{{code}}" {{#ifEquals code ../to}}selected{{/ifEquals}}>{{name}} – {{code}}</option>
             {{/each}}
         </select>
     </div>
