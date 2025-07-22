@@ -57,6 +57,7 @@ dependencies {
     implementation("org.http4k:http4k-server-netty") // Or choose another server like http4k-server-jetty
     implementation("org.http4k:http4k-template-handlebars")
     implementation("org.http4k:http4k-api-openapi") // For form parsing and session contracts
+    implementation("org.http4k:http4k-format-kotlinx-serialization")
     testImplementation("org.http4k:http4k-testing-approval")
     testImplementation("org.http4k:http4k-testing-hamkrest")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.3")

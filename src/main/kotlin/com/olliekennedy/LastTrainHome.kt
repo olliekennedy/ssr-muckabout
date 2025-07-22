@@ -19,6 +19,7 @@ import org.http4k.core.cookie.cookie
 import org.http4k.core.then
 import org.http4k.core.with
 import org.http4k.filter.DebuggingFilters.PrintRequest
+import org.http4k.format.KotlinxSerialization
 import org.http4k.lens.FormField
 import org.http4k.lens.Validator
 import org.http4k.lens.webForm
@@ -34,6 +35,7 @@ import org.http4k.template.viewModel
 import java.io.InputStream
 import java.util.UUID
 
+@Serializable
 data class Station(
     val code: String,
     val name: String,
@@ -83,6 +85,9 @@ val customHandlebars = Handlebars().apply {
 val renderer = HandlebarsTemplates(configure = { customHandlebars }).CachingClasspath()
 val views = Body.viewModel(renderer, TEXT_HTML).toLens()
 
+private val json = KotlinxSerialization
+val lens = json.autoBody<List<Station>>().toLens()
+
 const val CORPUS_FILENAME = "/datasets/CORPUSExtract.json"
 val stations: List<Station> = StationParser().parse(CORPUS_FILENAME).sortedBy { it.name.lowercase() }
 
@@ -125,16 +130,26 @@ val app: HttpHandler = routes(
                 val from = firstFormField(webForm)
                 val to = secondFormField(webForm)
                 val time = "23:44"
-                val link = "https://www.nationalrail.co.uk/live-trains/details/?sid=202507218936451&type=departures&targetCrs=ZFD&filterCrs=SAC"
+                val link =
+                    "https://www.nationalrail.co.uk/live-trains/details/?sid=202507218936451&type=departures&targetCrs=ZFD&filterCrs=SAC"
 
                 val resultViewModel = CalculationPageViewModel(stations, from, to, time, link, showResult = true)
 
-                session[LAST_CALC_SESSION_KEY] = "${resultViewModel.from},${resultViewModel.to},${resultViewModel.time},${resultViewModel.link}"
+                session[LAST_CALC_SESSION_KEY] =
+                    "${resultViewModel.from},${resultViewModel.to},${resultViewModel.time},${resultViewModel.link}"
 
                 Response(SEE_OTHER).header("Location", "/")
             }
+
             false -> Response(SEE_OTHER).header("Location", "/")
         }
+    },
+
+    "/stations" bind GET to { request ->
+        Response(OK)
+            .with(lens of stations)
+            .header("Cache-Control", "public, max-age=3600")
+            .header("Content-Type", "application/json")
     },
 
     "/static" bind static(Classpath("/public")),
