@@ -13,12 +13,13 @@ class StationParser {
             .let { Json.decodeFromString<StationDataset>(it) }
             .CORPUS
             .filter { it.`3ALPHA`.isNotBlank() }
+            .filter { !it.`3ALPHA`.startsWith("X") }
             .filter { it.NLCDESC.isNotBlank() }
             .filter { it.NLCDESC != "." }
             .map { Station(code = it.`3ALPHA`, name = it.NLCDESC) }
 
     private fun getInputStreamFrom(filename: String): InputStream = (javaClass.getResourceAsStream(filename)
-        ?: error("CORPUSExtract.json not found in resources!"))
+        ?: error("$filename not found in resources!"))
 
     companion object {
         @Suppress("PropertyName")

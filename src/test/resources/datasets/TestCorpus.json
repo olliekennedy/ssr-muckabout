@@ -62,6 +62,15 @@
       "UIC": "00130",
       "NLCDESC": "STOKE SOUTH",
       "NLCDESC16": " "
+    },
+    {
+      "NLC": 688160,
+      "STANOX": "50422",
+      "TIPLOC": "ILFEMUD",
+      "3ALPHA": "XIF",
+      "UIC": "68813",
+      "NLCDESC": "A SHOP BOGIE STORE NO.1",
+      "NLCDESC16": " "
     }
   ]
 }

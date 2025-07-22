@@ -21,4 +21,13 @@ class StationParserTest {
         assertThat(result.all { it.code.isNotBlank() }, equalTo(true))
         assertThat(result.all { it.name.isNotBlank() }, equalTo(true))
     }
+
+    @Test
+    fun `don't include non-public stations whose 3 letter code starts with x`() {
+        val corpusFileName = "/datasets/TestCorpus.json"
+
+        val result = underTest.parse(corpusFileName)
+
+        assertThat(result.map { it.code }, !hasElement("XIF"))
+    }
 }
