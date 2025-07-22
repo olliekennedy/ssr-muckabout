@@ -19,5 +19,6 @@ class StationParserTest {
         assertThat(result, hasSize(equalTo(3)))
         assertThat(result, hasElement(Station(code = "FMA", name = "FENTON MANOR")))
         assertThat(result.all { it.code.isNotBlank() }, equalTo(true))
+        assertThat(result.all { it.name.isNotBlank() }, equalTo(true))
     }
 }

@@ -22,18 +22,18 @@
       "NLC": 900,
       "STANOX": " ",
       "TIPLOC": " ",
-      "3ALPHA": " ",
+      "3ALPHA": "AAA",
       "UIC": " ",
-      "NLCDESC": "AUTHORISED INPUT LOCATION 0009",
+      "NLCDESC": " ",
       "NLCDESC16": "CAPRI HQ INPUT"
     },
     {
       "NLC": 1000,
       "STANOX": " ",
       "TIPLOC": " ",
-      "3ALPHA": " ",
+      "3ALPHA": "BBB",
       "UIC": " ",
-      "NLCDESC": "SPARE 166",
+      "NLCDESC": ".",
       "NLCDESC16": "SPARE 166"
     },
     {

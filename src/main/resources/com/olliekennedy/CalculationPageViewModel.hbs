@@ -15,11 +15,19 @@
 <form action="/calculate" method="post">
     <div>
         <label for="from">From</label>
-        <input type="text" id="from" name="from" value="{{from}}" required>
+        <select id="from" name="from" required>
+            {{#each stations}}
+                <option value={{code}}>{{name}} [{{code}}]</option>
+            {{/each}}
+        </select>
     </div>
     <div>
         <label for="to">To</label>
-        <input type="text" id="to" name="to" value="{{to}}" required>
+        <select id="to" name="to" required>
+            {{#each stations}}
+                <option value={{code}}>{{name}} [{{code}}]</option>
+            {{/each}}
+        </select>
     </div>
     <button type="submit">how late can i stay? 🍺</button>
 </form>

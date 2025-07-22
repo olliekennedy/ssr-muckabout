@@ -47,6 +47,7 @@ fun SessionFilter(): Filter = Filter { next ->
 }
 
 data class CalculationPageViewModel(
+    val stations: List<Station>,
     val from: String,
     val to: String,
     val time: String,
@@ -71,7 +72,7 @@ val renderer = HandlebarsTemplates().CachingClasspath()
 val views = Body.viewModel(renderer, TEXT_HTML).toLens()
 
 const val CORPUS_FILENAME = "/datasets/CORPUSExtract.json"
-val stations: List<Station> = StationParser().parse(CORPUS_FILENAME)
+val stations: List<Station> = StationParser().parse(CORPUS_FILENAME).sortedBy { it.name }
 
 const val LAST_CALC_SESSION_KEY = "lastCalculation"
 
@@ -87,6 +88,7 @@ val app: HttpHandler = routes(
             val parts = (it as String).split(",")
             if (parts.size == 4) {
                 CalculationPageViewModel(
+                    stations = stations,
                     from = parts[0],
                     to = parts[1],
                     time = parts[2],
@@ -94,7 +96,7 @@ val app: HttpHandler = routes(
                     showResult = true,
                 )
             } else null
-        } ?: CalculationPageViewModel("", "", "", "", showResult = false) // Default if no calculation yet
+        } ?: CalculationPageViewModel(stations, "", "", "", "", showResult = false) // Default if no calculation yet
 
         session.remove(LAST_CALC_SESSION_KEY)
 
@@ -113,7 +115,7 @@ val app: HttpHandler = routes(
                 val time = "23:44"
                 val link = "https://www.nationalrail.co.uk/live-trains/details/?sid=202507218936451&type=departures&targetCrs=ZFD&filterCrs=SAC"
 
-                val resultViewModel = CalculationPageViewModel(from, to, time, link, showResult = true)
+                val resultViewModel = CalculationPageViewModel(stations, from, to, time, link, showResult = true)
 
                 session[LAST_CALC_SESSION_KEY] = "${resultViewModel.from},${resultViewModel.to},${resultViewModel.time},${resultViewModel.link}"
 

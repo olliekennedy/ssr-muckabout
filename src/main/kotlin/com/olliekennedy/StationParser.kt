@@ -13,6 +13,8 @@ class StationParser {
             .let { Json.decodeFromString<StationDataset>(it) }
             .CORPUS
             .filter { it.`3ALPHA`.isNotBlank() }
+            .filter { it.NLCDESC.isNotBlank() }
+            .filter { it.NLCDESC != "." }
             .map { Station(code = it.`3ALPHA`, name = it.NLCDESC) }
 
     private fun getInputStreamFrom(filename: String): InputStream = (javaClass.getResourceAsStream(filename)
