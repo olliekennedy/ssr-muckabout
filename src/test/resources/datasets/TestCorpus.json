@@ -1,0 +1,67 @@
+{
+  "CORPUS": [
+    {
+      "NLC": 700,
+      "STANOX": "43423",
+      "TIPLOC": "FENTON",
+      "3ALPHA": "FMA",
+      "UIC": "00070",
+      "NLCDESC": "FENTON MANOR",
+      "NLCDESC16": " "
+    },
+    {
+      "NLC": 800,
+      "STANOX": " ",
+      "TIPLOC": " ",
+      "3ALPHA": " ",
+      "UIC": " ",
+      "NLCDESC": "MERSEYRAIL ELECTRICS-HQ INPUT",
+      "NLCDESC16": "MPTE HQ INPUT"
+    },
+    {
+      "NLC": 900,
+      "STANOX": " ",
+      "TIPLOC": " ",
+      "3ALPHA": " ",
+      "UIC": " ",
+      "NLCDESC": "AUTHORISED INPUT LOCATION 0009",
+      "NLCDESC16": "CAPRI HQ INPUT"
+    },
+    {
+      "NLC": 1000,
+      "STANOX": " ",
+      "TIPLOC": " ",
+      "3ALPHA": " ",
+      "UIC": " ",
+      "NLCDESC": "SPARE 166",
+      "NLCDESC16": "SPARE 166"
+    },
+    {
+      "NLC": 1100,
+      "STANOX": " ",
+      "TIPLOC": " ",
+      "3ALPHA": " ",
+      "UIC": " ",
+      "NLCDESC": "SPARE 167",
+      "NLCDESC16": "SPARE 167"
+    },
+    {
+      "NLC": 1200,
+      "STANOX": "43419",
+      "TIPLOC": "BUKNAL",
+      "3ALPHA": "BNN",
+      "UIC": "00120",
+      "NLCDESC": "BUCKNALL & NORTHWOOD",
+      "NLCDESC16": " "
+    },
+    {
+      "NLC": 1300,
+      "STANOX": "43416",
+      "TIPLOC": "STOKSTH",
+      "3ALPHA": "SSH",
+      "UIC": "00130",
+      "NLCDESC": "STOKE SOUTH",
+      "NLCDESC16": " "
+    }
+  ]
+}

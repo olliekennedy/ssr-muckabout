@@ -1,15 +1,18 @@
 package com.olliekennedy
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import org.http4k.core.*
+import org.http4k.core.Body
 import org.http4k.core.ContentType.Companion.TEXT_HTML
+import org.http4k.core.Filter
+import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
+import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.Status.Companion.SEE_OTHER
 import org.http4k.core.cookie.Cookie
 import org.http4k.core.cookie.cookie
+import org.http4k.core.then
+import org.http4k.core.with
 import org.http4k.filter.DebuggingFilters.PrintRequest
 import org.http4k.lens.FormField
 import org.http4k.lens.Validator
@@ -23,39 +26,12 @@ import org.http4k.server.asServer
 import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.ViewModel
 import org.http4k.template.viewModel
-import java.util.*
-
-@Suppress("PropertyName")
-@Serializable
-data class StationDataset(
-    val CORPUS: List<StationData>,
-)
-
-@Suppress("PropertyName")
-@Serializable
-data class StationData(
-    val NLC: Int,
-    val STANOX: String,
-    val TIPLOC: String,
-    val `3ALPHA`: String,
-    val UIC: String,
-    val NLCDESC: String,
-    val NLCDESC16: String,
-)
+import java.util.UUID
 
 data class Station(
     val code: String,
     val name: String,
 )
-
-fun parseStations(): List<Station> {
-    val inputStream = object {}.javaClass.getResourceAsStream("/datasets/CORPUSExtract.json")
-        ?: error("CORPUSExtract.json not found in resources!")
-    val json = inputStream.bufferedReader().use { it.readText() }
-    val stationDataset = Json.decodeFromString<StationDataset>(json)
-    val justBigStations = stationDataset.CORPUS.filter { it.`3ALPHA`.isNotBlank() }
-    return justBigStations.map { Station(code = it.`3ALPHA`, name = it.NLCDESC) }
-}
 
 fun SessionFilter(): Filter = Filter { next ->
     { request ->
@@ -94,7 +70,8 @@ val calculationForm = Body.webForm(Validator.Strict, firstFormField, secondFormF
 val renderer = HandlebarsTemplates().CachingClasspath()
 val views = Body.viewModel(renderer, TEXT_HTML).toLens()
 
-val stations: List<Station> = parseStations()
+const val CORPUS_FILENAME = "/datasets/CORPUSExtract.json"
+val stations: List<Station> = StationParser().parse(CORPUS_FILENAME)
 
 const val LAST_CALC_SESSION_KEY = "lastCalculation"
 
