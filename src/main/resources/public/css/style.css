@@ -115,3 +115,22 @@ button[type="submit"]:hover {
         transform: translateY(-10px);
     }
 }
+
+.suggestions {
+  border: 1px solid #ccc;
+  position: absolute;
+  background: white;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 300px;
+}
+
+.suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background: #eee;
+}

@@ -13,22 +13,16 @@
 
 
 <!-- Input Form -->
-<form action="/calculate" method="post">
+<form action="/calculate" method="post" autocomplete="off">
     <div>
-        <label for="from">From</label>
-        <select id="from" name="from" required>
-            {{#each stations}}
-                <option value="{{code}}" {{#ifEquals code ../from}}selected{{/ifEquals}}>{{name}} – {{code}}</option>
-            {{/each}}
-        </select>
+        <label for="from">From:</label>
+        <input type="text" name="from" id="from-input" value="{{from}}" placeholder="Start typing a station..." />
+        <div class="suggestions" id="from-suggestions"></div>
     </div>
     <div>
-        <label for="to">To</label>
-        <select id="to" name="to" required>
-            {{#each stations}}
-                <option value="{{code}}" {{#ifEquals code ../to}}selected{{/ifEquals}}>{{name}} – {{code}}</option>
-            {{/each}}
-        </select>
+        <label for="to">To:</label>
+        <input type="text" name="to" id="to-input" value="{{to}}" placeholder="Start typing a station..." />
+        <div class="suggestions" id="to-suggestions"></div>
     </div>
     <button type="submit">how late can i stay? 🍺</button>
 </form>
@@ -45,5 +39,6 @@
 
 <p class="ssr-note">This page is fully server-side rendered 🎉</p>
 <script src="/static/js/main.js"></script>
+<script src="/static/typeahead.js"></script>
 </body>
 </html>
