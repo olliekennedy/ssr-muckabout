@@ -2,17 +2,21 @@ package com.olliekennedy
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import java.io.InputStream
 
 class StationParser {
 
-    fun parse(filename: String): List<Station> {
-        val corpus = javaClass.getResourceAsStream(filename)
-            ?: error("CORPUSExtract.json not found in resources!")
-        val json = corpus.bufferedReader().use { it.readText() }
-        val stationDataset = Json.decodeFromString<StationDataset>(json)
-        val justBigStations = stationDataset.CORPUS.filter { it.`3ALPHA`.isNotBlank() }
-        return justBigStations.map { Station(code = it.`3ALPHA`, name = it.NLCDESC) }
-    }
+    fun parse(filename: String): List<Station> =
+        getInputStreamFrom(filename)
+            .bufferedReader()
+            .use { it.readText() }
+            .let { Json.decodeFromString<StationDataset>(it) }
+            .CORPUS
+            .filter { it.`3ALPHA`.isNotBlank() }
+            .map { Station(code = it.`3ALPHA`, name = it.NLCDESC) }
+
+    private fun getInputStreamFrom(filename: String): InputStream = (javaClass.getResourceAsStream(filename)
+        ?: error("CORPUSExtract.json not found in resources!"))
 
     companion object {
         @Suppress("PropertyName")
