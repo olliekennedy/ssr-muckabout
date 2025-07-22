@@ -25,7 +25,7 @@ kotlin {
 }
 
 application {
-    mainClass = "com.olliekennedy.HelloWorldKt"
+    mainClass = "com.olliekennedy.LastTrainHomeKt"
 }
 
 repositories {
