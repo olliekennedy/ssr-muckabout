@@ -213,7 +213,8 @@ class StationParser {
 fun main() {
     val printingApp: HttpHandler = SessionFilter().then(PrintRequest().then(app))
 
-    val server = printingApp.asServer(Netty(9000)).start()
+    val port = System.getenv("PORT")?.toIntOrNull() ?: 9000
+    val server = printingApp.asServer(Netty(port)).start()
 
     println("Server started on " + server.port())
     stations.forEach { println(it) }

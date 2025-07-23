@@ -1,0 +1,13 @@
+# flyctl launch added from .gitignore
+**/build
+**/.idea
+**/.gradle
+**/.kotlin
+
+# flyctl launch added from .idea/.gitignore
+# Default ignored files
+.idea/shelf
+.idea/workspace.xml
+# Environment-dependent path to Maven home directory
+.idea/mavenHomeManager.xml
+fly.toml
